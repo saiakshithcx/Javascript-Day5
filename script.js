@@ -1,42 +1,40 @@
 function spotlightMap(grid) {
-  const numRows = grid.length;
-  const numCols = grid[0].length;
-  const spotlightGrid = [];
+  const num_Rows = grid.length;
+  const num_Cols = grid[0].length;
+  const result = [];
 
-  // Calculate the spotlight sum for each number in the grid
-  for (let i = 0; i < numRows; i++) {
-    spotlightGrid[i] = [];
-    for (let j = 0; j < numCols; j++) {
-      const currentNum = grid[i][j];
-      let sum = currentNum;
+  for (let k = 0; k< num_Rows; k++) {
+    const row = [];
 
-      // Check adjacent numbers and add them to the sum
-      if (i - 1 >= 0) {
-        sum += grid[i - 1][j]; // Above
-      }
-      if (i + 1 < numRows) {
-        sum += grid[i + 1][j]; // Below
-      }
-      if (j - 1 >= 0) {
-        sum += grid[i][j - 1]; // Left
-      }
-      if (j + 1 < numCols) {
-        sum += grid[i][j + 1]; // Right
+    for (let h = 0; h < num_Cols; h++) {
+      let sum = 0;
+      for (let x = k - 1; x <= k + 1; x++) {
+        for (let y = h - 1; y <= h+ 1; y++) {
+          if (x >= 0 && x < num_Rows && y >= 0 && y < num_Cols) {
+            sum += grid[x][y];
+          }
+        }
       }
 
-      spotlightGrid[i][j] = sum; // Store the spotlight sum in the new grid
+      row.push(sum);
     }
+
+    result.push(row);
   }
 
-  return spotlightGrid;
+  return result;
 }
-
-// Example usage:
-const grid = [
+const grid1 = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9]
 ];
+console.log(spotlightMap(grid1));
+const grid2 = [
+  [2, 6, 1, 3, 7],
+  [8, 5, 9, 4, 0]
+];
+console.log(spotlightMap(grid2));
 
-const transformedGrid = spotlightMap(grid);
-console.log(transformedGrid);
+const grid3 = [[3]];
+console.log(spotlightMap(grid3));
